@@ -1,4 +1,5 @@
 import Header from "./Components/Header";
+import { Main } from "./Components/Main";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle `
@@ -31,12 +32,17 @@ const GlobalStyle = createGlobalStyle `
 		max-width: 100%;
 		heigth: auto;
 	}
+
+	ul {
+		list-style-type: none;
+	}
 `
 function App() {
   return (
     <div className="App">
 		 <GlobalStyle/>
 		 <Header />
+		 <Main />
     </div>
   );
 }
