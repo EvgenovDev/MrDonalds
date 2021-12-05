@@ -1,3 +1,4 @@
+import React from "react"
 import styled from "styled-components"
 
 const List = styled.ul `
@@ -16,7 +17,7 @@ const Item = styled.li `
 	margin-right: 15px;
 	margin-bottom: 15px;
 	border-radius: 5px;
-	z-index: 997;
+	z-index: 1;
 	cursor: pointer;
 	color: white;
 	font-family: Pacifico;
@@ -31,7 +32,7 @@ const Item = styled.li `
 		position: absolute;
 		background-color: black;
 		opacity: 0.4;
-		z-index: 998;
+		z-index: 2;
 		top: 0;
 		bottom: 0;
 		left: 0;
@@ -41,19 +42,23 @@ const Item = styled.li `
 `
 
 const ItemSpan = styled.span `
-	z-index: 999;
+	z-index: 3;
 `
 
-export const ListItem = ({items}) => {
+export const ListItem = ({items, setOpenModal}) => {
 	return (
 		<List>
 			{items.map(item => 
-			<Item img={item.img} 
-			key={item.id}>
-				<ItemSpan>
-					{item.name} / {item.price}руб
-				</ItemSpan>
-			</Item>)}
+				<Item img={item.img} 
+				key={item.id}
+				onClick={() => {
+					setOpenModal(item)
+				}}>
+					<ItemSpan>
+						{item.name} / {item.price}руб
+					</ItemSpan>
+				</Item>
+			)}
 		</List>
 	)
 }

@@ -1,6 +1,8 @@
+import React from "react";
 import Header from "./Components/Header";
 import { Main } from "./Components/Main";
 import { createGlobalStyle } from "styled-components";
+import { Modal } from "./Components/Modal";
 
 const GlobalStyle = createGlobalStyle `
 	html {
@@ -37,12 +39,17 @@ const GlobalStyle = createGlobalStyle `
 		list-style-type: none;
 	}
 `
+
 function App() {
+
+	const [openModal, setOpenModal] = React.useState(null);
+
   return (
     <div className="App">
 		 <GlobalStyle/>
 		 <Header />
-		 <Main />
+		 <Main setOpenModal={setOpenModal}/>
+		 <Modal openModal={openModal} setOpenModal={setOpenModal}/>
     </div>
   );
 }

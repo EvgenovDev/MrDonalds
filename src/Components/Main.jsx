@@ -26,7 +26,7 @@ const MainImgDiv = styled.div `
 		background-color: black;
 		opacity: 0.5;
 		height: 210px;
-		z-index: 998;
+		z-index: 4;
 	}
 `
 
@@ -41,7 +41,7 @@ const BannerTitle = styled.h2 `
 	position: absolute;
 	top 30%;
 	left: 35%;
-	z-index: 999;
+	z-index: 5;
 	letter-spacing: 5px;
 `
 
@@ -51,7 +51,7 @@ const SectionTitle = styled.h3 `
 	margin-bottom: 10px;
 `
 
-export const Main = (props) => {
+export const Main = ({setOpenModal}) => {
 	return (
 		<main>
 			<MainImgDiv>
@@ -60,11 +60,11 @@ export const Main = (props) => {
 			</MainImgDiv>
 			<Section>
 				<SectionTitle>Бургеры</SectionTitle>
-				<ListItem items={dbMenu.burger}/>
+				<ListItem items={dbMenu.burger} setOpenModal={setOpenModal}/>
 			</Section>
 			<Section>
 				<SectionTitle>Закуски</SectionTitle>
-				<ListItem items={dbMenu.other}/>
+				<ListItem items={dbMenu.other} setOpenModal={setOpenModal}/>
 			</Section>
 		</main>
 	)
