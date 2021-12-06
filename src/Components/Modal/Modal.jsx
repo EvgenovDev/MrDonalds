@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ModalButton } from "./Buttons";
+import { ModalButton } from "../Buttons";
 
 const Overlay = styled.div `
 	position: fixed;
@@ -65,7 +65,7 @@ const ModalCloseSpan = styled.span `
 	}});
 `
 
-export const Modal = ({setOpenModal, openModal}) => {
+export const Modal = ({setOpenModal, openModal, order, setOrder}) => {
 
 	const closeModal = (e) => {
 		if (e.target.id === "overlay" || e.target.closest("#close")) {
@@ -73,8 +73,13 @@ export const Modal = ({setOpenModal, openModal}) => {
 		}
 	}
 
-	if (!openModal) {
-		return null;
+	const newOrder = {
+		...openModal
+	};
+
+	const addToOrder = () => {
+		setOrder([...order, newOrder]);	
+		setOpenModal(null);	
 	}
 
 	return (
@@ -89,7 +94,10 @@ export const Modal = ({setOpenModal, openModal}) => {
 					<ModalWindowSpan>{openModal.name}</ModalWindowSpan>
 					<ModalWindowSpan>{openModal.price}руб</ModalWindowSpan>
 				</ModalWindowDescription>
-				<ModalButton/>
+				<ModalButton 
+					text="Добавить" 
+					func={addToOrder}>
+				</ModalButton>
 			</ModalWindow>
 		</Overlay>
 	)

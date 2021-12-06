@@ -1,6 +1,6 @@
 import  styled  from "styled-components";
-import logo from "../images/logo.svg";
-import user from "../images/user.svg"
+import logo from "../../images/logo.svg";
+import user from "../../images/user.svg"
 
 const NavBar = styled.header `
 	width: 100%;

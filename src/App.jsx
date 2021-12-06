@@ -1,9 +1,11 @@
 import React from "react";
-import Header from "./Components/Header";
-import { Main } from "./Components/Main";
+import Header from "./Components/Header/Header";
+import { Main } from "./Components/MainMenu/Main";
 import { createGlobalStyle } from "styled-components";
-import { Modal } from "./Components/Modal";
-import { Order } from "./Components/Order";
+import { Modal } from "./Components/Modal/Modal";
+import { Order } from "./Components/Order/Order";
+import { useOpenModal } from "./Components/Hooks/useOpenModal";
+import { useAddOrder } from "./Components/Hooks/useAddOrder";
 
 const GlobalStyle = createGlobalStyle `
 	html {
@@ -43,15 +45,16 @@ const GlobalStyle = createGlobalStyle `
 
 function App() {
 
-	const [openModal, setOpenModal] = React.useState(null);
+	const openModal = useOpenModal();
+	const orders = useAddOrder();
 
   return (
     <div className="App">
 		 <GlobalStyle/>
 		 <Header />
-		 <Order />
-		 <Main setOpenModal={setOpenModal}/>
-		 <Modal openModal={openModal} setOpenModal={setOpenModal}/>
+		 <Order {...orders}/>
+		 <Main {...openModal}/>
+		 {openModal.openModal && <Modal {...openModal} {...orders}/>}
     </div>
   );
 }

@@ -4,7 +4,6 @@ const ButtonDiv = styled.div `
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 200px;
 `
 
 const Button = styled.button `
@@ -26,10 +25,10 @@ const Button = styled.button `
 	}
 `
 
-export const ModalButton = () => {
+export const ModalButton = ({text, func}) => {
 	return (
 		<ButtonDiv>
-			<Button>Добавить</Button>
+			<Button onClick={func}>{text}</Button>
 		</ButtonDiv>
 	)
 }

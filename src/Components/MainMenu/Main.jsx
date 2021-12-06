@@ -1,8 +1,8 @@
 import React from "react";
-import dbMenu from "./DBMenu";
+import dbMenu from "../DBMenu";
 import { ListItem } from "./ListItem";
 import  styled  from "styled-components";
-import banner from "../images/banner.png";
+import banner from "../../images/banner.png";
 
 const Section = styled.section `
 	display: flex;
