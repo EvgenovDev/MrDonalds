@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import { Main } from "./Components/Main";
 import { createGlobalStyle } from "styled-components";
 import { Modal } from "./Components/Modal";
+import { Order } from "./Components/Order";
 
 const GlobalStyle = createGlobalStyle `
 	html {
@@ -48,6 +49,7 @@ function App() {
     <div className="App">
 		 <GlobalStyle/>
 		 <Header />
+		 <Order />
 		 <Main setOpenModal={setOpenModal}/>
 		 <Modal openModal={openModal} setOpenModal={setOpenModal}/>
     </div>

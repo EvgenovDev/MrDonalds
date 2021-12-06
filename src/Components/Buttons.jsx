@@ -15,9 +15,15 @@ const Button = styled.button `
 	heigth: 25px;
 	background-color: #299B01;
 	font-size: 24px;
-	border: none;
+	border: 2px solid #299B01;
 	border-radius: 5px;
 	cursor: pointer;
+	transition-property: background-color, color, border;
+	&:hover {
+		background-color: white;
+		color: #299B01;
+		border: 2px solid #299B01;
+	}
 `
 
 export const ModalButton = () => {
