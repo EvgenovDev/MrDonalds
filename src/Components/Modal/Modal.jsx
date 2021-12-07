@@ -5,6 +5,7 @@ import { Toppings } from "./Topping";
 import { useCheckToppings } from "../Hooks/useCheckToppings";
 import { countPrice } from "../Functions/countPrice";
 import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
+import { getCheckedToppings } from "../Functions/getToppings";
 
 const Overlay = styled.div `
 	position: fixed;
@@ -126,6 +127,7 @@ const TotalCountSpan = styled.span `
 `
 
 export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount, changeCount}) => {
+	const toppings = useCheckToppings(openModal)
 
 	const closeModal = (e) => {
 		if (e.target.id === "overlay" || e.target.closest("#close")) {
@@ -136,16 +138,16 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 
 	const newOrder = {
 		...openModal,
-		count: count
+		count: count,
+		topping: getCheckedToppings(toppings.toppings),
+		priceTopping: (openModal.price * count * 0.1) 
 	};
 
 	const addToOrder = () => {
 		setOrder([...order, newOrder]);	
 		setOpenModal(null);		
-		setCount(1);	
+		setCount(1);
 	}
-
-	const toppings = useCheckToppings(openModal)
 
 	return (
 		<Overlay onClick={closeModal} id="overlay">

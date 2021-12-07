@@ -5,6 +5,8 @@ import trashImg from "../../images/trash.svg"
 import { countPrice } from "../Functions/countPrice";
 import { countAllPrice } from "../Functions/countPrice";
 import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
+import { ToppingsList } from "./ToppingsList";
+import { getCountOrder } from "../Functions/getCountOrder";
 
 const OrderWindow = styled.section `
 	position: fixed;
@@ -98,20 +100,24 @@ export const Order = ({order, setOrder, openOrder, count}) => {
 					{order.length > 0 ? 
 						<OrderListItem>
 							{order.map(elem => 
-							<OrderItem>
-								<span>{elem.name}</span>
-								<span>{elem.count}</span>
-								<span>{toLocaleStringFunc(countPrice(elem.price, elem.count))}</span>
-								<Trash/>
-							</OrderItem>)}
-				</OrderListItem>:
-				<Empty>Список заказов пуст</Empty>}
+								<>
+									<OrderItem>
+										<span>{elem.name}</span>
+										<span>{elem.count}</span>
+										<span>{toLocaleStringFunc(parseInt(countPrice(elem.price, elem.count, elem.topping.length, elem.priceTopping)))}</span>
+										<Trash/>
+									</OrderItem>
+									<ToppingsList elem={elem}/>
+								</>
+
+							)}
+				</OrderListItem> : <Empty>Список заказов пуст</Empty>}
 			</Wrap>
 			<Wrap>
 			<Total>
 					<TotalText><b>Итого:</b></TotalText>
-					<TotalCount><b>5</b></TotalCount>
-					<TotalPrice><b>{toLocaleStringFunc(countAllPrice(order))}</b></TotalPrice>
+					<TotalCount><b>{getCountOrder(order)}</b></TotalCount>
+					<TotalPrice><b>{toLocaleStringFunc(parseInt(countAllPrice(order)))}</b></TotalPrice>
 				</Total>
 			<ModalButton text="Оформить заказ"></ModalButton>
 			</Wrap>

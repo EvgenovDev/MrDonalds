@@ -5,3 +5,7 @@ export const getToppings = (toppings) => {
 
 	return newArray;
 }
+
+export const getCheckedToppings = (array) => {
+	return array.filter(elem => elem.check === true)
+}
