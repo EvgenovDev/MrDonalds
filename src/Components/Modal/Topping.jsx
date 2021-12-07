@@ -24,16 +24,24 @@ const ToppingLabel = styled.label `
 	width: 130px;
 `
 
+const ToppingEmpty = styled.p `
+	text-align: center;
+	width: 100%;
+`
+
 export const Toppings = ({toppings, checkToppings}) => {
 	return (
-		<ToppingsGlobalWrap>
-				{toppings.map((topping, i) => 
-					<ToppingsWrap key={i}>
-						<ToppingLabel>{topping.name}</ToppingLabel>
-						<ToppingCheckbox type="checkbox"	onChange={() => {checkToppings(i)}}/>
-					</ToppingsWrap>
-				)}
-
-		</ToppingsGlobalWrap>
+		<>
+			{toppings ? 
+					<ToppingsGlobalWrap>
+					{toppings.map((topping, i) => 
+						<ToppingsWrap key={i}>
+							<ToppingLabel>{topping.name}</ToppingLabel>
+							<ToppingCheckbox type="checkbox"	onChange={() => {checkToppings(i)}}/>
+						</ToppingsWrap>
+					)}
+				</ToppingsGlobalWrap> : <ToppingEmpty>Добавок не предусмотренно</ToppingEmpty>
+			}
+		</>
 	)
 }

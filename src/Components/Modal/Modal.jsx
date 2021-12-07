@@ -184,7 +184,7 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 								countPrice(
 									openModal.price,
 									count,
-									toppings.toppings.filter(topping => topping.check === true).length,
+									toppings.toppings ? toppings.toppings.filter(topping => topping.check === true).length : 0,
 									(openModal.price * count * 0.1))))}
 					</b></TotalCountSpan>
 				</TotalCount>

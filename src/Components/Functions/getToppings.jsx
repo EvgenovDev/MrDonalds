@@ -1,11 +1,17 @@
 export const getToppings = (toppings) => {
-	const newArray = toppings.map(elem => {
-		return {name: elem, check: false}
-	})
-
-	return newArray;
+	if (toppings) {
+		return toppings.map(elem => {
+			return {name: elem, check: false}
+		})
+	} else {
+		return null
+	}
 }
 
 export const getCheckedToppings = (array) => {
-	return array.filter(elem => elem.check === true)
+	if (array) {
+		return array.filter(elem => elem.check === true)
+	} else {
+		return [];
+	}
 }
