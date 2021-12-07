@@ -4,6 +4,7 @@ const ButtonDiv = styled.div `
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	${({position, bottom, left}) => `position: ${position}; bottom: ${bottom}; left: ${left}`}
 `
 
 const Button = styled.button `
@@ -11,7 +12,6 @@ const Button = styled.button `
 	color: white;
 	padding: 20px;
 	width: 265px;
-	heigth: 25px;
 	background-color: #299B01;
 	font-size: 24px;
 	border: 2px solid #299B01;
@@ -25,9 +25,9 @@ const Button = styled.button `
 	}
 `
 
-export const ModalButton = ({text, func}) => {
+export const ModalButton = ({text, func, position, bottom, left}) => {
 	return (
-		<ButtonDiv>
+		<ButtonDiv position={position} bottom={bottom} left={left}>
 			<Button onClick={func}>{text}</Button>
 		</ButtonDiv>
 	)

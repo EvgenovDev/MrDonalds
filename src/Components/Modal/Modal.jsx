@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { ModalButton } from "../Buttons";
+import { Toppings } from "./Topping";
+import { useCheckToppings } from "../Hooks/useCheckToppings";
+import { countPrice } from "../Functions/countPrice";
+import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
 
 const Overlay = styled.div `
 	position: fixed;
@@ -36,8 +40,9 @@ const ModalWindowBanner = styled.div `
 
 const ModalWindowDescription = styled.div `
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
 	margin-top: 20px;
+	padding: 0px 40px 0px 40px;
 `
 
 const ModalWindowSpan = styled.span `
@@ -68,9 +73,8 @@ const ModalCloseSpan = styled.span `
 const CountWrap = styled.div `
 	display: flex;
 	justify-content: space-around;
-	margin-bottom: 30px;
+	margin-top: 10px;
 	align-items: center;
-	margin-top: 50px;
 `
 
 const CountInput = styled.input `
@@ -103,6 +107,24 @@ const ButtonCount = styled.button `
 	}
 `
 
+const TotalCount = styled.div `
+	padding: 0px 20px 0px 20px;
+	position: absolute;
+	bottom: 105px;
+	left: 25%;
+`
+
+const ToppingsTitle = styled.h3 `
+	font-size: 24px;
+	text-align: center;
+`
+
+const TotalCountSpan = styled.span `
+	&:last-child {
+		margin-left: 60px;
+	}
+`
+
 export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount, changeCount}) => {
 
 	const closeModal = (e) => {
@@ -122,6 +144,8 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 		setOpenModal(null);		
 		setCount(1);	
 	}
+
+	const toppings = useCheckToppings(openModal)
 
 	return (
 		<Overlay onClick={closeModal} id="overlay">
@@ -148,7 +172,24 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 						<ButtonCount onClick={() => setCount(count + 1)}>+</ButtonCount>
 					</div>
 				</CountWrap>
-				<ModalButton 
+				<ToppingsTitle>Добавки</ToppingsTitle>
+				<Toppings {...toppings}/>
+				<TotalCount>
+					<TotalCountSpan><b>Итоговая цена:</b></TotalCountSpan>
+					<TotalCountSpan><b>
+						{toLocaleStringFunc(
+							parseInt(
+								countPrice(
+									openModal.price,
+									count,
+									toppings.toppings.filter(topping => topping.check === true).length,
+									(openModal.price * count * 0.1))))}
+					</b></TotalCountSpan>
+				</TotalCount>
+				<ModalButton
+					position="absolute"
+					bottom="20px"
+					left="30%"
 					text="Добавить" 
 					func={addToOrder}>
 				</ModalButton>
