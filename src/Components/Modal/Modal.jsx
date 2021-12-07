@@ -65,21 +65,62 @@ const ModalCloseSpan = styled.span `
 	}});
 `
 
-export const Modal = ({setOpenModal, openModal, order, setOrder}) => {
+const CountWrap = styled.div `
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 30px;
+	align-items: center;
+	margin-top: 50px;
+`
+
+const CountInput = styled.input `
+	width: 50px;
+	text-align: center;
+	height: 30px;
+	border: none;
+	&:focus {
+		outline: none;
+	}
+`
+
+const CountSpan = styled.span `
+	font-size: 26px;
+`
+
+const ButtonCount = styled.button `
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	background-color: transparent;
+	border-radius: 50%;
+	border: black solid 1px;
+	cursor: pointer;
+	color: #299B01;
+	&:hover {
+		background-color: #299B01;
+		color: white;
+		border: #299B01 solid 1px;
+	}
+`
+
+export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount, changeCount}) => {
 
 	const closeModal = (e) => {
 		if (e.target.id === "overlay" || e.target.closest("#close")) {
 			setOpenModal(null);
+			setCount(1);
 		}
 	}
 
 	const newOrder = {
-		...openModal
+		...openModal,
+		count: count
 	};
 
 	const addToOrder = () => {
 		setOrder([...order, newOrder]);	
-		setOpenModal(null);	
+		setOpenModal(null);		
+		setCount(1);	
 	}
 
 	return (
@@ -94,6 +135,19 @@ export const Modal = ({setOpenModal, openModal, order, setOrder}) => {
 					<ModalWindowSpan>{openModal.name}</ModalWindowSpan>
 					<ModalWindowSpan>{openModal.price}руб</ModalWindowSpan>
 				</ModalWindowDescription>
+				<CountWrap>
+					<CountSpan>Количество</CountSpan>
+					<div>
+						<ButtonCount 
+						onClick={() => setCount(count - 1)}
+						disabled={count <= 1}>-</ButtonCount>
+						<CountInput 
+							value={count < 1 ? 1 : count}
+							type="number"
+							onChange={(e) => changeCount(e)}/>
+						<ButtonCount onClick={() => setCount(count + 1)}>+</ButtonCount>
+					</div>
+				</CountWrap>
 				<ModalButton 
 					text="Добавить" 
 					func={addToOrder}>

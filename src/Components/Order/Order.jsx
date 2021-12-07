@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { ModalButton } from "../Buttons";
 import trashImg from "../../images/trash.svg"
+import { countPrice } from "../Functions/countPrice";
+import { countAllPrice } from "../Functions/countPrice";
+import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
 
 const OrderWindow = styled.section `
 	position: fixed;
@@ -85,7 +88,7 @@ const Empty = styled.p `
 	text-align: center;
 `
 
-export const Order = ({order, setOrder, openOrder}) => {
+export const Order = ({order, setOrder, openOrder, count}) => {
 	return (
 		<OrderWindow>
 			<Wrap>
@@ -97,8 +100,8 @@ export const Order = ({order, setOrder, openOrder}) => {
 							{order.map(elem => 
 							<OrderItem>
 								<span>{elem.name}</span>
-								<span>1</span>
-								<span>{elem.price.toLocaleString("ru-RU", {style: "currency", currency: "RUB"})}</span>
+								<span>{elem.count}</span>
+								<span>{toLocaleStringFunc(countPrice(elem.price, elem.count))}</span>
 								<Trash/>
 							</OrderItem>)}
 				</OrderListItem>:
@@ -108,7 +111,7 @@ export const Order = ({order, setOrder, openOrder}) => {
 			<Total>
 					<TotalText><b>Итого:</b></TotalText>
 					<TotalCount><b>5</b></TotalCount>
-					<TotalPrice><b>800руб</b></TotalPrice>
+					<TotalPrice><b>{toLocaleStringFunc(countAllPrice(order))}</b></TotalPrice>
 				</Total>
 			<ModalButton text="Оформить заказ"></ModalButton>
 			</Wrap>

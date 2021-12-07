@@ -6,6 +6,7 @@ import { Modal } from "./Components/Modal/Modal";
 import { Order } from "./Components/Order/Order";
 import { useOpenModal } from "./Components/Hooks/useOpenModal";
 import { useAddOrder } from "./Components/Hooks/useAddOrder";
+import { useCount } from "./Components/Hooks/useCount"
 
 const GlobalStyle = createGlobalStyle `
 	html {
@@ -41,20 +42,27 @@ const GlobalStyle = createGlobalStyle `
 	ul {
 		list-style-type: none;
 	}
+
+	input[type=number]::-webkit-inner-spin-button,
+	input[type=number]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
 `
 
 function App() {
 
 	const openModal = useOpenModal();
 	const orders = useAddOrder();
+	const count = useCount();
 
   return (
     <div className="App">
 		 <GlobalStyle/>
 		 <Header />
-		 <Order {...orders}/>
+		 {orders.order.length > 0 && <Order {...orders}/>}
 		 <Main {...openModal}/>
-		 {openModal.openModal && <Modal {...openModal} {...orders}/>}
+		 {openModal.openModal && <Modal {...openModal} {...orders} {...count}/>}
     </div>
   );
 }
