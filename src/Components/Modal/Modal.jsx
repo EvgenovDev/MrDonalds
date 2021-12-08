@@ -76,7 +76,7 @@ const ModalCloseSpan = styled.span `
 const CountWrap = styled.div `
 	display: flex;
 	justify-content: space-around;
-	margin-top: 10px;
+	margin-top: 20px;
 	align-items: center;
 `
 
@@ -172,8 +172,8 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 						<ButtonCount onClick={() => setCount(count + 1)}>+</ButtonCount>
 					</div>
 				</CountWrap>
-				<Toppings {...toppings}/>
-				<Choices {...choices}/>
+				<Toppings {...toppings} openModal={openModal}/>
+				<Choices {...choices} openModal={openModal}/>
 				<TotalCount>
 					<TotalCountSpan><b>Итоговая цена:</b></TotalCountSpan>
 					<TotalCountSpan><b>
@@ -191,7 +191,8 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 					bottom="20px"
 					left="30%"
 					text="Добавить" 
-					func={addToOrder}>
+					func={addToOrder}
+					disabled={openModal.choices && !choices.choices}>
 				</ModalButton>
 			</ModalWindow>
 		</Overlay>

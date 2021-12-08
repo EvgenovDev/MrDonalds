@@ -25,7 +25,7 @@ const ToppingLabel = styled.label `
 `
 
 const ToppingEmpty = styled.p `
-	margin-top: 50px;
+	margin-top: 40px;
 	text-align: center;
 	width: 100%;
 `
@@ -35,7 +35,7 @@ const ToppingsTitle = styled.h3 `
 	text-align: center;
 `
 
-export const Toppings = ({toppings, checkToppings}) => {
+export const Toppings = ({toppings, checkToppings, openModal}) => {
 	return (
 		<>
 			{toppings ? 
@@ -49,8 +49,7 @@ export const Toppings = ({toppings, checkToppings}) => {
 								</ToppingsWrap>
 							)}
 						</ToppingsGlobalWrap> 
-				</> : <ToppingEmpty>Добавок не предусмотренно</ToppingEmpty>
-
+				</> : openModal.choices ? <></> : <ToppingEmpty>Добавок не предусмотренно</ToppingEmpty>
 			}
 		</>
 	)

@@ -1,7 +1,7 @@
 import React from "react";
 
-export const useChoices = (openModal) => {
-	const [choices, setChoices] = React.useState(openModal.choices)
+export const useChoices = () => {
+	const [choices, setChoices] = React.useState(null)
 
 	const checkChoices = (e) => {
 		setChoices(e.target.value);

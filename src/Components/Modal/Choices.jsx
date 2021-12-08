@@ -4,6 +4,7 @@ import styled from "styled-components";
 const ChoicesGlobalWrap = styled.div `
 	display: flex;
 	justify-content: space-around;
+	margin-top: 40px;
 `
 
 const ChoicesWrap = styled.div `
@@ -18,14 +19,14 @@ const ChoicesName = styled.span `
 
 `
 
-export const Choices = ({choices, checkChoices}) => {
+export const Choices = ({choices, checkChoices, openModal}) => {
 	return (
 		<>
-			{choices ? 
+			{openModal.choices ? 
 				<ChoicesGlobalWrap>
-				{choices.map((choice, i) => 
+				{openModal.choices.map((choice, i) => 
 					<ChoicesWrap key={i}>
-						<ChoicesRadio type="radio" name="choice"/>
+						<ChoicesRadio type="radio" name="choice" onChange={checkChoices}/>
 						<ChoicesName>{choice}</ChoicesName>
 					</ChoicesWrap>
 				)}

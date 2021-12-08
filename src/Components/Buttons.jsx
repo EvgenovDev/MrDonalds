@@ -23,12 +23,25 @@ const Button = styled.button `
 		color: #299B01;
 		border: 2px solid #299B01;
 	}
+	&:disabled {
+		background-color: #9a9a9a;
+		border: #9a9a9a solid 2px;
+		&:hover {
+			color: white;
+		}
+	}
 `
 
-export const ModalButton = ({text, func, position, bottom, left}) => {
+export const ModalButton = (
+	{text,
+	 func,
+	 position,
+	 bottom,
+	 left,
+	 disabled}) => {
 	return (
 		<ButtonDiv position={position} bottom={bottom} left={left}>
-			<Button onClick={func}>{text}</Button>
+			<Button onClick={func} disabled={disabled}>{text}</Button>
 		</ButtonDiv>
 	)
 }
