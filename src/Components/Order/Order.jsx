@@ -7,6 +7,7 @@ import { countAllPrice } from "../Functions/countPrice";
 import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
 import { ToppingsList } from "./ToppingsList";
 import { getCountOrder } from "../Functions/getCountOrder";
+import { deleteItem } from "../Functions/deleteItem";
 
 const OrderWindow = styled.section `
 	position: fixed;
@@ -103,9 +104,9 @@ export const Order = ({order, setOrder, openOrder, count}) => {
 				</OrderWindowTitle>
 					{order.length > 0 ? 
 						<OrderListItem>
-							{order.map(elem => 
+							{order.map((elem, i) => 
 								<>
-									<OrderItem>
+									<OrderItem key={i}>
 										<SpanWrap>
 											<span>{elem.name}</span>
 											<span>{elem.choices}</span>
@@ -114,7 +115,9 @@ export const Order = ({order, setOrder, openOrder, count}) => {
 										<SpanWrap>
 											<span>{toLocaleStringFunc(parseInt(countPrice(elem.price, elem.count, elem.topping.length, elem.priceTopping)))}</span>
 										</SpanWrap>
-										<Trash/>
+										<Trash onClick={() => {
+											setOrder(deleteItem(order, i));
+										}}/>
 									</OrderItem>
 									<ToppingsList elem={elem}/>
 								</>
