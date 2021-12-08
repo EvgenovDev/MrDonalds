@@ -66,16 +66,7 @@ const OrderItem = styled.li `
 	width: 100%;
 	justify-content: space-between;
 	margin-bottom: 15px;
-	& span {
-		margin: auto;
-	}
-	& span:first-child {
-		width: 100px;
-	}
-	& span:nth-child(3) {
-		width: 100px;
-		text-align: right;
-	}
+	align-items: center;
 `
 
 const Trash = styled.span `
@@ -90,6 +81,19 @@ const Empty = styled.p `
 	text-align: center;
 `
 
+const SpanWrap = styled.div `
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	justify-content: center;
+	&:first-child {
+		& span {
+			width: 100px;
+			text-align: left;
+		}
+	}
+`
+
 export const Order = ({order, setOrder, openOrder, count}) => {
 	return (
 		<OrderWindow>
@@ -102,9 +106,14 @@ export const Order = ({order, setOrder, openOrder, count}) => {
 							{order.map(elem => 
 								<>
 									<OrderItem>
-										<span>{elem.name}</span>
-										<span>{elem.count}</span>
-										<span>{toLocaleStringFunc(parseInt(countPrice(elem.price, elem.count, elem.topping.length, elem.priceTopping)))}</span>
+										<SpanWrap>
+											<span>{elem.name}</span>
+											<span>{elem.choices}</span>
+										</SpanWrap>
+										<SpanWrap><span>{elem.count}</span></SpanWrap>
+										<SpanWrap>
+											<span>{toLocaleStringFunc(parseInt(countPrice(elem.price, elem.count, elem.topping.length, elem.priceTopping)))}</span>
+										</SpanWrap>
 										<Trash/>
 									</OrderItem>
 									<ToppingsList elem={elem}/>

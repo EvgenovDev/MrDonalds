@@ -26,7 +26,7 @@ export const Choices = ({choices, checkChoices, openModal}) => {
 				<ChoicesGlobalWrap>
 				{openModal.choices.map((choice, i) => 
 					<ChoicesWrap key={i}>
-						<ChoicesRadio type="radio" name="choice" onChange={checkChoices}/>
+						<ChoicesRadio type="radio" name="choice" value={choice} onChange={checkChoices}/>
 						<ChoicesName>{choice}</ChoicesName>
 					</ChoicesWrap>
 				)}

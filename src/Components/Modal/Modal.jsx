@@ -138,7 +138,8 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 		...openModal,
 		count: count,
 		topping: getCheckedToppings(toppings.toppings),
-		priceTopping: (openModal.price * count * 0.1) 
+		priceTopping: (openModal.price * count * 0.1),
+		choices: choices.choices
 	};
 
 	const addToOrder = () => {
