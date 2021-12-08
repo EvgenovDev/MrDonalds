@@ -8,6 +8,8 @@ import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
 import { ToppingsList } from "./ToppingsList";
 import { getCountOrder } from "../Functions/getCountOrder";
 import { deleteItem } from "../Functions/deleteItem";
+import { getOrderForChange } from "../Functions/changeOrder";
+import { getCheckedToppings } from "../Functions/getToppings";
 
 const OrderWindow = styled.section `
 	position: fixed;
@@ -95,7 +97,7 @@ const SpanWrap = styled.div `
 	}
 `
 
-export const Order = ({order, setOrder, openOrder, count}) => {
+export const Order = ({order, setOrder, setIndexOrder, setOpenModal}) => {
 	return (
 		<OrderWindow>
 			<Wrap>
@@ -106,22 +108,26 @@ export const Order = ({order, setOrder, openOrder, count}) => {
 						<OrderListItem>
 							{order.map((elem, i) => 
 								<>
-									<OrderItem key={i}>
+									<OrderItem key={i} onClick={(e) => {
+										if (!e.target.closest("#trash")) {
+											setOpenModal((getOrderForChange(i, order)));
+											setIndexOrder(i);
+										}
+									}}>
 										<SpanWrap>
 											<span>{elem.name}</span>
 											<span>{elem.choices}</span>
 										</SpanWrap>
 										<SpanWrap><span>{elem.count}</span></SpanWrap>
 										<SpanWrap>
-											<span>{toLocaleStringFunc(parseInt(countPrice(elem.price, elem.count, elem.topping.length, elem.priceTopping)))}</span>
+											<span>{toLocaleStringFunc(parseInt(countPrice(elem.price, elem.count, getCheckedToppings(elem.topping).length, elem.priceTopping)))}</span>
 										</SpanWrap>
-										<Trash onClick={() => {
+										<Trash id={"trash"} onClick={() => {
 											setOrder(deleteItem(order, i));
 										}}/>
 									</OrderItem>
 									<ToppingsList elem={elem}/>
 								</>
-
 							)}
 				</OrderListItem> : <Empty>Список заказов пуст</Empty>}
 			</Wrap>

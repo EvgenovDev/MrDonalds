@@ -45,7 +45,10 @@ export const Toppings = ({toppings, checkToppings, openModal}) => {
 							{toppings.map((topping, i) => 
 								<ToppingsWrap key={i}>
 									<ToppingLabel>{topping.name}</ToppingLabel>
-									<ToppingCheckbox type="checkbox"	onChange={() => {checkToppings(i)}}/>
+									<ToppingCheckbox
+										checked={topping.check}
+										type="checkbox"
+										onChange={() => {checkToppings(i)}}/>
 								</ToppingsWrap>
 							)}
 						</ToppingsGlobalWrap> 

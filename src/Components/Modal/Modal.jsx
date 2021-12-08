@@ -5,9 +5,9 @@ import { Toppings } from "./Topping";
 import { useCheckToppings } from "../Hooks/useCheckToppings";
 import { countPrice } from "../Functions/countPrice";
 import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
-import { getCheckedToppings } from "../Functions/getToppings";
 import { useChoices } from "../Hooks/useChoices";
 import { Choices } from "./Choices";
+import { useCount } from "../Hooks/useCount"
 
 const Overlay = styled.div `
 	position: fixed;
@@ -16,7 +16,7 @@ const Overlay = styled.div `
 	height: 100%;
 	width: 100%;
 	background-color: rgba(0, 0, 0, 0.7);
-	z-index: 6;
+	z-index: 99;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -123,29 +123,41 @@ const TotalCountSpan = styled.span `
 	}
 `
 
-export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount, changeCount}) => {
+export const Modal = ({setOpenModal, openModal, order, setOrder, changeCount, indexOrder, setIndexOrder}) => {
+
 	const toppings = useCheckToppings(openModal);
 	const choices = useChoices(openModal);
+	const count = useCount(openModal);
+	const isEdit = indexOrder > -1;
+
 
 	const closeModal = (e) => {
 		if (e.target.id === "overlay" || e.target.closest("#close")) {
 			setOpenModal(null);
-			setCount(1);
+			count.setCount(1);
+			setIndexOrder(undefined);
 		}
 	}
 
 	const newOrder = {
 		...openModal,
-		count: count,
-		topping: getCheckedToppings(toppings.toppings),
-		priceTopping: (openModal.price * count * 0.1),
+		count: count.count,
+		topping: toppings.toppings,
+		priceTopping: (openModal.price * count.count * 0.1),
 		choices: choices.choices
 	};
 
 	const addToOrder = () => {
 		setOrder([...order, newOrder]);	
 		setOpenModal(null);		
-		setCount(1);
+		count.setCount(1);
+		setIndexOrder(undefined);
+	}
+
+	const editOrder = (e) => {
+		const allOrders = [...order];
+		allOrders[indexOrder] = newOrder;
+		setOrder(allOrders)
 	}
 
 	return (
@@ -164,13 +176,13 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 					<CountSpan>Количество</CountSpan>
 					<div>
 						<ButtonCount 
-						onClick={() => setCount(count - 1)}
-						disabled={count <= 1}>-</ButtonCount>
+						onClick={() => count.setCount(count.count - 1)}
+						disabled={count.count <= 1}>-</ButtonCount>
 						<CountInput 
-							value={count < 1 ? 1 : count}
+							value={count.count < 1 ? 1 : count.count}
 							type="number"
 							onChange={(e) => changeCount(e)}/>
-						<ButtonCount onClick={() => setCount(count + 1)}>+</ButtonCount>
+						<ButtonCount onClick={() => count.setCount(count.count + 1)}>+</ButtonCount>
 					</div>
 				</CountWrap>
 				<Toppings {...toppings} openModal={openModal}/>
@@ -182,9 +194,9 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 							parseInt(
 								countPrice(
 									openModal.price,
-									count,
+									count.count,
 									toppings.toppings ? toppings.toppings.filter(topping => topping.check === true).length : 0,
-									(openModal.price * count * 0.1))))}
+									(openModal.price * count.count * 0.1))))}
 					</b></TotalCountSpan>
 				</TotalCount>
 				<ModalButton
@@ -192,7 +204,11 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 					bottom="20px"
 					left="30%"
 					text="Добавить" 
-					func={addToOrder}
+					isEdit={isEdit}
+					func={() => {
+						isEdit ? editOrder() : addToOrder();
+						setOpenModal(null)
+					}}
 					disabled={openModal.choices && !choices.choices}>
 				</ModalButton>
 			</ModalWindow>

@@ -6,7 +6,7 @@ import { Modal } from "./Components/Modal/Modal";
 import { Order } from "./Components/Order/Order";
 import { useOpenModal } from "./Components/Hooks/useOpenModal";
 import { useAddOrder } from "./Components/Hooks/useAddOrder";
-import { useCount } from "./Components/Hooks/useCount"
+import { useIndex } from "./Components/Hooks/useIndex";
 
 const GlobalStyle = createGlobalStyle `
 	html {
@@ -54,15 +54,15 @@ function App() {
 
 	const openModal = useOpenModal();
 	const orders = useAddOrder();
-	const count = useCount();
+	const indexOrder = useIndex();
 
   return (
     <div className="App">
 		 <GlobalStyle/>
 		 <Header />
-		 {orders.order.length > 0 && <Order {...orders}/>}
+		 {orders.order.length > 0 && <Order {...orders} {...openModal} {...indexOrder}/>}
 		 <Main {...openModal}/>
-		 {openModal.openModal && <Modal {...openModal} {...orders} {...count}/>}
+		 {openModal.openModal && <Modal {...openModal} {...orders} {...indexOrder}/>}
     </div>
   );
 }

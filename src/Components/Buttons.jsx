@@ -38,10 +38,11 @@ export const ModalButton = (
 	 position,
 	 bottom,
 	 left,
-	 disabled}) => {
+	 disabled,
+	 isEdit}) => {
 	return (
 		<ButtonDiv position={position} bottom={bottom} left={left}>
-			<Button onClick={func} disabled={disabled}>{text}</Button>
+			<Button onClick={func} disabled={disabled}>{isEdit ? "Редактировать" : text}</Button>
 		</ButtonDiv>
 	)
 }
