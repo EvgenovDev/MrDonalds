@@ -25,22 +25,32 @@ const ToppingLabel = styled.label `
 `
 
 const ToppingEmpty = styled.p `
+	margin-top: 50px;
 	text-align: center;
 	width: 100%;
+`
+
+const ToppingsTitle = styled.h3 `
+	font-size: 24px;
+	text-align: center;
 `
 
 export const Toppings = ({toppings, checkToppings}) => {
 	return (
 		<>
 			{toppings ? 
-					<ToppingsGlobalWrap>
-					{toppings.map((topping, i) => 
-						<ToppingsWrap key={i}>
-							<ToppingLabel>{topping.name}</ToppingLabel>
-							<ToppingCheckbox type="checkbox"	onChange={() => {checkToppings(i)}}/>
-						</ToppingsWrap>
-					)}
-				</ToppingsGlobalWrap> : <ToppingEmpty>Добавок не предусмотренно</ToppingEmpty>
+				<>
+					<ToppingsTitle>Добавки</ToppingsTitle>
+						<ToppingsGlobalWrap>
+							{toppings.map((topping, i) => 
+								<ToppingsWrap key={i}>
+									<ToppingLabel>{topping.name}</ToppingLabel>
+									<ToppingCheckbox type="checkbox"	onChange={() => {checkToppings(i)}}/>
+								</ToppingsWrap>
+							)}
+						</ToppingsGlobalWrap> 
+				</> : <ToppingEmpty>Добавок не предусмотренно</ToppingEmpty>
+
 			}
 		</>
 	)

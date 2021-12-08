@@ -6,6 +6,8 @@ import { useCheckToppings } from "../Hooks/useCheckToppings";
 import { countPrice } from "../Functions/countPrice";
 import { toLocaleStringFunc } from "../Functions/toLocaleStringFunc";
 import { getCheckedToppings } from "../Functions/getToppings";
+import { useChoices } from "../Hooks/useChoices";
+import { Choices } from "./Choices";
 
 const Overlay = styled.div `
 	position: fixed;
@@ -115,11 +117,6 @@ const TotalCount = styled.div `
 	left: 25%;
 `
 
-const ToppingsTitle = styled.h3 `
-	font-size: 24px;
-	text-align: center;
-`
-
 const TotalCountSpan = styled.span `
 	&:last-child {
 		margin-left: 60px;
@@ -127,7 +124,8 @@ const TotalCountSpan = styled.span `
 `
 
 export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount, changeCount}) => {
-	const toppings = useCheckToppings(openModal)
+	const toppings = useCheckToppings(openModal);
+	const choices = useChoices(openModal);
 
 	const closeModal = (e) => {
 		if (e.target.id === "overlay" || e.target.closest("#close")) {
@@ -174,8 +172,8 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, count, setCount
 						<ButtonCount onClick={() => setCount(count + 1)}>+</ButtonCount>
 					</div>
 				</CountWrap>
-				<ToppingsTitle>Добавки</ToppingsTitle>
 				<Toppings {...toppings}/>
+				<Choices {...choices}/>
 				<TotalCount>
 					<TotalCountSpan><b>Итоговая цена:</b></TotalCountSpan>
 					<TotalCountSpan><b>
