@@ -65,6 +65,7 @@ const OrderListItem = styled.ul `
 `
 
 const OrderItem = styled.li `
+	cursor: pointer;
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
