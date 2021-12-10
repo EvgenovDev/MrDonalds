@@ -37,6 +37,7 @@ const LogoImg = styled.img `
 const UserLogo = styled.img ` 
 	width: 32px;
 	margin-bottom: 5px;
+	border-radius: 50%;
 `
 
 const UserText = styled.span `
