@@ -10,6 +10,7 @@ import { getCountOrder } from "../Functions/getCountOrder";
 import { deleteItem } from "../Functions/deleteItem";
 import { getOrderForChange } from "../Functions/changeOrder";
 import { getCheckedToppings } from "../Functions/getToppings";
+import { sendOrder } from "../Functions/sendOrder";
 
 const OrderWindow = styled.section `
 	position: fixed;
@@ -98,7 +99,7 @@ const SpanWrap = styled.div `
 	}
 `
 
-export const Order = ({order, setOrder, setIndexOrder, setOpenModal}) => {
+export const Order = ({order, setOrder, setIndexOrder, setOpenModal, auth}) => {
 	return (
 		<OrderWindow>
 			<Wrap>
@@ -138,7 +139,7 @@ export const Order = ({order, setOrder, setIndexOrder, setOpenModal}) => {
 					<TotalCount><b>{getCountOrder(order)}</b></TotalCount>
 					<TotalPrice><b>{toLocaleStringFunc(parseInt(countAllPrice(order)))}</b></TotalPrice>
 				</Total>
-			<ModalButton text="Оформить заказ"></ModalButton>
+			<ModalButton text="Оформить заказ" func={() => {sendOrder(auth, order)}}></ModalButton>
 			</Wrap>
 		</OrderWindow>
 	)

@@ -7,6 +7,20 @@ import { Order } from "./Components/Order/Order";
 import { useOpenModal } from "./Components/Hooks/useOpenModal";
 import { useAddOrder } from "./Components/Hooks/useAddOrder";
 import { useIndex } from "./Components/Hooks/useIndex";
+import { useAuth } from "./Components/Hooks/useAuth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth"
+
+	const firebaseConfig = {
+		apiKey: "AIzaSyD_6hbGWu622siHbTsjKO9xznrjmrRDQLk",
+		authDomain: "mrdonalds-a0891.firebaseapp.com",
+		projectId: "mrdonalds-a0891",
+		storageBucket: "mrdonalds-a0891.appspot.com",
+		messagingSenderId: "976840945859",
+		appId: "1:976840945859:web:b6116e2f58d43706baf276"
+	 };
+
+	 const app = firebase.initializeApp(firebaseConfig);
 
 const GlobalStyle = createGlobalStyle `
 	html {
@@ -55,12 +69,17 @@ function App() {
 	const openModal = useOpenModal();
 	const orders = useAddOrder();
 	const indexOrder = useIndex();
+	const authentication = useAuth(firebase.auth);
 
   return (
     <div className="App">
 		 <GlobalStyle/>
-		 <Header />
-		 {orders.order.length > 0 && <Order {...orders} {...openModal} {...indexOrder}/>}
+		 <Header {...authentication}/>
+		 {orders.order.length > 0 && <Order 
+			{...orders} 
+			{...openModal} 
+			{...indexOrder} 
+			{...authentication}/>}
 		 <Main {...openModal}/>
 		 {openModal.openModal && <Modal {...openModal} {...orders} {...indexOrder}/>}
     </div>
