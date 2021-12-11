@@ -42,7 +42,7 @@ export const ModalButton = (
 	 isEdit}) => {
 	return (
 		<ButtonDiv position={position} bottom={bottom} left={left}>
-			<Button onClick={func} disabled={disabled}>{isEdit ? "Редактировать" : text}</Button>
+			<Button onClick={func} disabled={disabled}>{isEdit === null ? "Редактировать" : text}</Button>
 		</ButtonDiv>
 	)
 }

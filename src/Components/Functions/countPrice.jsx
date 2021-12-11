@@ -7,7 +7,7 @@ const countPrice = (price, count, countToppings, priceToppings) => {
 }
 
 const countAllPrice = (array) => {
-	return array.reduce((result, elem) =>
+	return array.reduce((result, elem) => 
 	countPrice(elem.price, elem.count, elem.topping.length, elem.priceTopping) + result , 0)
 } 
 

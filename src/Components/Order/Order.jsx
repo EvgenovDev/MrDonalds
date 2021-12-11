@@ -118,7 +118,7 @@ export const Order = ({order, setOrder, setIndexOrder, setOpenModal, auth}) => {
 									}}>
 										<SpanWrap>
 											<span>{elem.name}</span>
-											<span>{elem.choices}</span>
+											<span>{elem.choice}</span>
 										</SpanWrap>
 										<SpanWrap><span>{elem.count}</span></SpanWrap>
 										<SpanWrap>

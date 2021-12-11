@@ -142,9 +142,10 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, changeCount, in
 	const newOrder = {
 		...openModal,
 		count: count.count,
-		topping: toppings.toppings,
+		topping: toppings.toppings ? toppings.toppings : [],
 		priceTopping: (openModal.price * count.count * 0.1),
-		choices: choices.choices
+		choice: choices.choices,
+		choices: openModal.choices
 	};
 
 	const addToOrder = () => {
@@ -162,6 +163,7 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, changeCount, in
 
 	return (
 		<Overlay onClick={closeModal} id="overlay">
+			{console.log(openModal)}
 			<ModalWindow>
 				<ModalClose id="close">
 					<ModalCloseSpan deg={-135}/>
@@ -208,6 +210,7 @@ export const Modal = ({setOpenModal, openModal, order, setOrder, changeCount, in
 					func={() => {
 						isEdit ? editOrder() : addToOrder();
 						setOpenModal(null)
+						setIndexOrder(undefined)
 					}}
 					disabled={openModal.choices && !choices.choices}>
 				</ModalButton>
